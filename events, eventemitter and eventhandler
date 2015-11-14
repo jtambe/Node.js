@@ -1,0 +1,28 @@
+// Importing events module
+var events = require('events');
+
+// Create an eventEmitter object, this is done to 
+// 1.emit events and 
+// 2.bind the event using event handler
+var eventEmitterObj = new events.EventEmitter();
+
+// Create an event handler as follows
+var connectHandler = function connected() {
+   console.log('Alena called.');
+  
+   // Fire the Jayesh event 
+   eventEmitterObj.emit('Jayesh');
+}
+
+// Bind the Alena event with the handler which was previously created.
+eventEmitterObj.on('Alena', connectHandler);
+ 
+// Bind the Jayesh event with the anonymous function
+eventEmitterObj.on('Jayesh', function(){
+   console.log('Jayesh Executing.');
+});
+
+// Fire the Alena event 
+eventEmitterObj.emit('Alena');
+
+console.log("Program Ended.");
