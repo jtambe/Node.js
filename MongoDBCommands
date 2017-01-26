@@ -193,3 +193,341 @@ WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 { "_id" : ObjectId("5888478f17dd94d0f344a444"), "EmployerName" : "California State University,Chico - Research Foundation", "Position" : "Graduate Student Research Assistant" }
 { "_id" : ObjectId("5888478f17dd94d0f344a445"), "EmployerName" : "Accenture", "Position" : "Software Engineering Senior Analyst" }
 { "_id" : ObjectId("588849d817dd94d0f344a447"), "EmployerName" : "Atos Worldline", "Position" : "Application Engineer" }
+C:\Program Files\MongoDB\Server\3.2\bin\mongo.exe
+MongoDB shell version: 3.2.8
+connecting to: localhost:27017/Resume
+> db.Employers.find()
+
+{ "_id" : ObjectId("5888452117dd94d0f344a442"), "EmployerName" : "Matson & Isom Technology Consulting", "Position" : "Intern" }
+{ "_id" : ObjectId("5888457517dd94d0f344a443"), "EmployerName" : "California State University, Chico", "Position" : "Teaching Associate" }
+{ "_id" : ObjectId("5888478f17dd94d0f344a444"), "EmployerName" : "California State University,Chico - Research Foundation", "Position" : "Graduate Student Research Assistant" }
+{ "_id" : ObjectId("5888478f17dd94d0f344a445"), "EmployerName" : "Accenture", "Position" : "Software Engineering Senior Analyst" }
+{ "_id" : ObjectId("588849d817dd94d0f344a447"), "EmployerName" : "Atos Worldline", "Position" : "Application Engineer" }
+> db.Employers.find(
+    {"Position":"Software Engineer"}
+)
+> db.Employers.find(
+    {"Position":"Application Engineer"}
+)
+{ "_id" : ObjectId("588849d817dd94d0f344a447"), "EmployerName" : "Atos Worldline", "Position" : "Application Engineer" }
+> db.Employers.insert(
+    [
+        {"EmployerName":"Godrej Efacec", "Position":"Software Engineer"},
+        {"EmployerName":"Aurionpro Solutions", "Position":"Software Engineer"}
+    ]
+)
+BulkWriteResult({
+    "writeErrors" : [ ],
+    "writeConcernErrors" : [ ],
+    "nInserted" : 2,
+    "nUpserted" : 0,
+    "nMatched" : 0,
+    "nModified" : 0,
+    "nRemoved" : 0,
+    "upserted" : [ ]
+})
+> db.Employers.find()
+{ "_id" : ObjectId("5888452117dd94d0f344a442"), "EmployerName" : "Matson & Isom Technology Consulting", "Position" : "Intern" }
+{ "_id" : ObjectId("5888457517dd94d0f344a443"), "EmployerName" : "California State University, Chico", "Position" : "Teaching Associate" }
+{ "_id" : ObjectId("5888478f17dd94d0f344a444"), "EmployerName" : "California State University,Chico - Research Foundation", "Position" : "Graduate Student Research Assistant" }
+{ "_id" : ObjectId("5888478f17dd94d0f344a445"), "EmployerName" : "Accenture", "Position" : "Software Engineering Senior Analyst" }
+{ "_id" : ObjectId("588849d817dd94d0f344a447"), "EmployerName" : "Atos Worldline", "Position" : "Application Engineer" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeadf"), "EmployerName" : "Godrej Efacec", "Position" : "Software Engineer" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeae0"), "EmployerName" : "Aurionpro Solutions", "Position" : "Software Engineer" }
+> db.Employers.find(
+    $and:
+    [
+        {"Position":"Software Engineer"},
+        {"EmployerName":"Godrej Efacec"}
+    ]
+)
+2017-01-25T17:16:20.774-0800 E QUERY    [thread1] SyntaxError: missing ) after argument list @(shell):2:8
+
+> db.Employers.find(
+    $or:
+    [
+        {"Position":"Software Engineer"},
+        {"EmployerName":"Godrej Efacec"}
+    ]
+)
+2017-01-25T17:18:23.897-0800 E QUERY    [thread1] SyntaxError: missing ) after argument list @(shell):2:7
+
+> db.Employers.find(
+       {"Position":"Software Engineer"}
+    
+)
+{ "_id" : ObjectId("58894d9f2916b16b20afeadf"), "EmployerName" : "Godrej Efacec", "Position" : "Software Engineer" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeae0"), "EmployerName" : "Aurionpro Solutions", "Position" : "Software Engineer" }
+> db.Employers.find(
+    $or:
+    [
+        {"Position":"Software Engineer"},
+        {"EmployerName":"Godrej Efacec"}
+    ]
+)
+2017-01-25T17:18:56.757-0800 E QUERY    [thread1] SyntaxError: missing ) after argument list @(shell):2:7
+
+> db.Employers.find(
+{
+    $or:
+    [
+        {"Position":"Software Engineer"},
+        {"EmployerName":"Godrej Efacec"}
+    ]
+}
+)
+{ "_id" : ObjectId("58894d9f2916b16b20afeadf"), "EmployerName" : "Godrej Efacec", "Position" : "Software Engineer" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeae0"), "EmployerName" : "Aurionpro Solutions", "Position" : "Software Engineer" }
+> db.Employers.find(
+{
+    $and:
+    [
+        {"Position":"Software Engineer"},
+        {"EmployerName":"Godrej Efacec"}
+    ]
+}
+)
+{ "_id" : ObjectId("58894d9f2916b16b20afeadf"), "EmployerName" : "Godrej Efacec", "Position" : "Software Engineer" }
+> db.Employers.find(
+{
+    $or:
+    [
+        {"Position":"Software Engineer"},
+        {"EmployerName":"Godrej Efacec"}
+    ]
+},
+{ "EmployerName":1, _id:0}
+)
+{ "EmployerName" : "Godrej Efacec" }
+{ "EmployerName" : "Aurionpro Solutions" }
+> db.Employers.find(
+{
+    $or:
+    [
+        {"Position":"Software Engineer"},
+        {"EmployerName":"Godrej Efacec"}
+    ]
+},
+{ "EmployerName":1}
+)
+{ "_id" : ObjectId("58894d9f2916b16b20afeadf"), "EmployerName" : "Godrej Efacec" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeae0"), "EmployerName" : "Aurionpro Solutions" }
+> db.Awards.insert(
+{"Award":"India’s Inspire ACE GEMs award by Accenture.", "Description":"For successful delivery of migrating employee certificates from one system to another."}
+)
+WriteResult({ "nInserted" : 1 })
+> db.Resume.collections()
+2017-01-25T17:26:16.677-0800 E QUERY    [thread1] TypeError: db.Resume.collections is not a function :
+@(shell):1:1
+
+> db.Resume.collections
+Resume.Resume.collections
+> db.Resume.collection
+Resume.Resume.collection
+> db.collections()
+2017-01-25T17:26:40.092-0800 E QUERY    [thread1] TypeError: db.collections is not a function :
+@(shell):1:1
+
+> db.Collections()
+2017-01-25T17:26:47.897-0800 E QUERY    [thread1] TypeError: db.Collections is not a function :
+@(shell):1:1
+
+> show collections
+Awards
+Employers
+Information
+> db.Information.find()
+{ "_id" : ObjectId("5888448a17dd94d0f344a441"), "FullName" : "Jayesh Madhav Tambe", "Address" : "522 Nord Avenue, Apartment 16, Chico, California 95926", "Email" : "tambe_jayesh@hotmail.com" }
+> db.Skills.insert(
+    [
+        {"Languages":"C, C++, C#, Python, Java, Javascript, HTML5"},
+        {"Frameworks":"jquery.js, angular.js, bootstrap.js, CSS3 ,ASP.net MVC, WEB API"},
+        {"Database":"SQL, PL-SQL, MongoDB"}
+    ]
+)
+
+BulkWriteResult({
+    "writeErrors" : [ ],
+    "writeConcernErrors" : [ ],
+    "nInserted" : 3,
+    "nUpserted" : 0,
+    "nMatched" : 0,
+    "nModified" : 0,
+    "nRemoved" : 0,
+    "upserted" : [ ]
+})
+> db.Skills.find()
+{ "_id" : ObjectId("588951a22916b16b20afeae2"), "Languages" : "C, C++, C#, Python, Java, Javascript, HTML5" }
+{ "_id" : ObjectId("588951a22916b16b20afeae3"), "Frameworks" : "jquery.js, angular.js, bootstrap.js, CSS3 ,ASP.net MVC, WEB API" }
+{ "_id" : ObjectId("588951a22916b16b20afeae4"), "Database" : "SQL, PL-SQL, MongoDB" }
+> db.Employers.find()
+{ "_id" : ObjectId("5888452117dd94d0f344a442"), "EmployerName" : "Matson & Isom Technology Consulting", "Position" : "Intern" }
+{ "_id" : ObjectId("5888457517dd94d0f344a443"), "EmployerName" : "California State University, Chico", "Position" : "Teaching Associate" }
+{ "_id" : ObjectId("5888478f17dd94d0f344a444"), "EmployerName" : "California State University,Chico - Research Foundation", "Position" : "Graduate Student Research Assistant" }
+{ "_id" : ObjectId("5888478f17dd94d0f344a445"), "EmployerName" : "Accenture", "Position" : "Software Engineering Senior Analyst" }
+{ "_id" : ObjectId("588849d817dd94d0f344a447"), "EmployerName" : "Atos Worldline", "Position" : "Application Engineer" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeadf"), "EmployerName" : "Godrej Efacec", "Position" : "Software Engineer" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeae0"), "EmployerName" : "Aurionpro Solutions", "Position" : "Software Engineer" }
+> db.Employers.update(
+
+    {"EmployerName" : "Matson & Isom Technology Consulting"},
+    {
+    "EmployerName" : "Matson & Isom Technology Consulting",
+    "Position":"Intern",
+    "Start Date":new Date("2016-Sep-06")
+    }
+
+
+
+)
+
+
+
+
+
+
+2017-01-25T17:37:53.487-0800 E QUERY    [thread1] SyntaxError: expected expression, got ')' @(shell):1:0
+
+> db.Employers.update(
+
+    {"EmployerName" : "Matson & Isom Technology Consulting"},
+    {
+    "EmployerName" : "Matson & Isom Technology Consulting",
+    "Position":"Intern",
+    "Start Date":new Date('2016-Sep-06')
+    }
+
+
+
+)
+
+
+
+
+
+
+2017-01-25T17:39:13.996-0800 E QUERY    [thread1] SyntaxError: expected expression, got ')' @(shell):1:0
+
+> db.Employers.update(
+
+    {"EmployerName" : "Matson & Isom Technology Consulting"},
+    {
+    "EmployerName" : "Matson & Isom Technology Consulting",
+    "Position":"Intern",
+    "Description":"Web app using ASP.net MVC, jQuery.js, CSS3 & SQL to send bulk SMS to subscribers using Twilio SMS service."
+    }
+
+
+
+)
+
+
+
+
+
+
+2017-01-25T17:40:13.710-0800 E QUERY    [thread1] SyntaxError: expected expression, got ')' @(shell):1:0
+
+> db.Employers.update(
+
+    {"EmployerName" : "Matson & Isom Technology Consulting"}
+    {
+    "EmployerName" : "Matson & Isom Technology Consulting",
+    "Position":"Intern",
+    "Description":"Web app using ASP.net MVC, jQuery.js, CSS3 & SQL to send bulk SMS to subscribers using Twilio SMS service."
+    }
+)
+
+
+
+
+
+
+2017-01-25T17:40:57.775-0800 E QUERY    [thread1] SyntaxError: missing ) after argument list @(shell):4:4
+
+> db.Employers.update(
+
+    {"EmployerName" : "Matson & Isom Technology Consulting"},
+    {$set:
+        {
+        "EmployerName" : "Matson & Isom Technology Consulting",
+        "Position":"Intern",
+        "Description":"Web app using ASP.net MVC, jQuery.js, CSS3 & SQL to send bulk SMS to subscribers using Twilio SMS service."
+        }
+    }
+)
+
+
+
+
+
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Employers.find()
+{ "_id" : ObjectId("5888452117dd94d0f344a442"), "EmployerName" : "Matson & Isom Technology Consulting", "Position" : "Intern", "Description" : "Web app using ASP.net MVC, jQuery.js, CSS3 & SQL to send bulk SMS to subscribers using Twilio SMS service." }
+{ "_id" : ObjectId("5888457517dd94d0f344a443"), "EmployerName" : "California State University, Chico", "Position" : "Teaching Associate" }
+{ "_id" : ObjectId("5888478f17dd94d0f344a444"), "EmployerName" : "California State University,Chico - Research Foundation", "Position" : "Graduate Student Research Assistant" }
+{ "_id" : ObjectId("5888478f17dd94d0f344a445"), "EmployerName" : "Accenture", "Position" : "Software Engineering Senior Analyst" }
+{ "_id" : ObjectId("588849d817dd94d0f344a447"), "EmployerName" : "Atos Worldline", "Position" : "Application Engineer" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeadf"), "EmployerName" : "Godrej Efacec", "Position" : "Software Engineer" }
+{ "_id" : ObjectId("58894d9f2916b16b20afeae0"), "EmployerName" : "Aurionpro Solutions", "Position" : "Software Engineer" }
+> db.Employers.update(
+
+    {"EmployerName" : "Matson & Isom Technology Consulting"},
+    {$set:
+        {
+        "EmployerName" : "Matson & Isom Technology Consulting",
+        "Position":"Intern",
+        "Description":"Web app using ASP.net MVC, jQuery.js, CSS3 & SQL to send bulk SMS to subscribers using Twilio SMS service.",
+        "Start Date":new Date('2016-September-06')
+        }
+    }
+)
+
+
+
+
+
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.EMployers.find().pretty()
+> db.Employers.find().pretty()
+{
+    "_id" : ObjectId("5888452117dd94d0f344a442"),
+    "EmployerName" : "Matson & Isom Technology Consulting",
+    "Position" : "Intern",
+    "Description" : "Web app using ASP.net MVC, jQuery.js, CSS3 & SQL to send bulk SMS to subscribers using Twilio SMS service.",
+    "Start Date" : ISODate("-292275055-05-16T16:47:02.192Z")
+}
+{
+    "_id" : ObjectId("5888457517dd94d0f344a443"),
+    "EmployerName" : "California State University, Chico",
+    "Position" : "Teaching Associate"
+}
+{
+    "_id" : ObjectId("5888478f17dd94d0f344a444"),
+    "EmployerName" : "California State University,Chico - Research Foundation",
+    "Position" : "Graduate Student Research Assistant"
+}
+{
+    "_id" : ObjectId("5888478f17dd94d0f344a445"),
+    "EmployerName" : "Accenture",
+    "Position" : "Software Engineering Senior Analyst"
+}
+{
+    "_id" : ObjectId("588849d817dd94d0f344a447"),
+    "EmployerName" : "Atos Worldline",
+    "Position" : "Application Engineer"
+}
+{
+    "_id" : ObjectId("58894d9f2916b16b20afeadf"),
+    "EmployerName" : "Godrej Efacec",
+    "Position" : "Software Engineer"
+}
+{
+    "_id" : ObjectId("58894d9f2916b16b20afeae0"),
+    "EmployerName" : "Aurionpro Solutions",
+    "Position" : "Software Engineer"
+}
+> db.EMployers.find().pretty()
+
